@@ -5,10 +5,9 @@ const formName = document.querySelector('#name');
 const formNumber = document.querySelector('#number');
 const submitBtn = document.querySelector('#submit-btn');
 const cancelBtn = document.querySelector('#cancel-btn');
-const resetBtn = document.querySelector('#reset-btn');
 const recordContainer = document.querySelector('.record-box');
 const messageAlert = document.getElementById('.message');
-
+const deteleBtn = document.getElementsByClassName('delete-btn');
 
 let contactArr = [];
 let id = 0;
@@ -21,7 +20,12 @@ function Contact (id, name, number) {
     this.number = number;
 }
 
+document.addEventListener('DOMContentLoaded', getContacts);
 submitBtn.addEventListener('click', submitAndAdd);
+
+cancelBtn.addEventListener("click", ()=>{
+    location.reload();
+})
 
 function submitAndAdd(){
         id++;
@@ -50,12 +54,22 @@ function addToList(item){
         <span id="contact-num-content">${item.number}</span>
     </div>
 
-    <button type="button" id="delete-btn"><i class="fas fa-trash"></i> Delete</button>
+    <button type="button" class="delete-btn"><i class="fas fa-trash"></i> Delete</button>
    
     `;
 
-    recordContainer.appendChild(newRecordDiv);
     saveLocalContacts(item);
+    recordContainer.appendChild(newRecordDiv);
+
+}
+
+function deleteContact(e){
+    const item = e.target;
+    console,log('I can touch u ');
+    if(item.classList[0] === 'delete-btn'){
+        const contact = item.parentElement;
+        contact.remove();
+    }
 
 }
 
@@ -74,5 +88,28 @@ function saveLocalContacts(contact){
     }
     contacts.push({contact});
     localStorage.setItem("contacts", JSON.stringify({contact}))
+}
+
+function getContacts() {
+
+    let contacts;
+    if(localStorage.getItem('record-box') === null){
+        contacts = [];
+    }
+    else {
+        contacts = JSON.parse(getItem('record-box'));
+        lastID(contactArr);
+    }
+
+    contacts.forEach((contact)=>{
+
+        const newRecordDiv = document.createElement('div');
+    newRecordDiv.classList.add('record-item');
+    newRecordDiv.innerHTML = contact;
+
+    recordContainer.appendChild(newRecordDiv);
+
+    })
+
 }
 
