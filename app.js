@@ -31,12 +31,12 @@ cancelBtn.addEventListener("click", () => location.reload());
 function submitAndAdd(){
 
     if (formName.value.trim() === "") {
-        alert("Please enter a name before adding a phone number.");
+        alert("Please enter a NAME before adding a contact");
         return; 
     }
     else if (formNumber.value.trim() === "") {
           {
-        alert("Please enter a phone number before adding a contact.")
+        alert("Please enter a phone NUMBER before adding a contact.")
     }}
 
         id++;
